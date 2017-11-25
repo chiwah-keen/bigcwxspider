@@ -64,6 +64,7 @@ def update_pubnum_article_time(db, pubnum_id, article_time):
     return db.update("update wechat_pubnum set last_article_time=%(art_time)s where pubnum_id=%(pubnum_id)s",
                      pubnum_id=pubnum_id, art_time=article_time)
 
+
 def save_article(db, pubnum_id, art):
     try:
         return db.insert("insert into wechat_article(pubnum_id, url_md5, content_url, title, "
@@ -80,11 +81,11 @@ def save_article(db, pubnum_id, art):
 def save_wecaht_pubnum(db, p):
     try:
         return db.insert('insert into wechat_pubnum(wechat_name, nick_name, pic_url,qr_code, originid, '
-                     'biz, status, create_time) values(%(wechat_name)s, %(nick_name)s, %(pic_url)s, '
-                     '%(qr_code)s, %(originid)s, %(biz)s, 0, %(curr_time)s);',
-                     wechat_name=p.get('originid', ''), nick_name=p.get('nick_name',''),
-                     pic_url=p.get('pic_url', ''), qr_code=p.get('qr_code', ''),
-                     originid=p.get('originid', ''), biz=p.get('biz', ''), curr_time=utils.get_curr_time())
+                         'biz, status, create_time) values(%(wechat_name)s, %(nick_name)s, %(pic_url)s, '
+                         '%(qr_code)s, %(originid)s, %(biz)s, 0, %(curr_time)s);',
+                         wechat_name=p.get('originid', ''), nick_name=p.get('nick_name',''),
+                         pic_url=p.get('pic_url', ''), qr_code=p.get('qr_code', ''),
+                         originid=p.get('originid', ''), biz=p.get('biz', ''), curr_time=utils.get_curr_time())
     except Exception as e:
         print traceback.format_exc()
         return False

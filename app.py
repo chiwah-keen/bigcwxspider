@@ -19,7 +19,6 @@ for i in range(1):
     c.start()
     task_queue.append(c)
 
-print  '--2'
 for t in task_queue:
     t.join()
 

@@ -24,7 +24,6 @@ class QueueConsumer(multiprocessing.Process):
         self.mydqldb = db.Connection(host=conf.MYSQL_HOST, user=conf.MYSQL_USER,
                                      password=conf.MYSQL_PASSWD, database=conf.MYSQL_DB,
                                      time_zone='+8:00', max_idle_time=252)
-        print 'end to consumer....'
 
     def get_pubnum(self):
         while True:

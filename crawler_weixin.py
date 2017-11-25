@@ -37,7 +37,7 @@ class CrawlerWeixin(object):
         msg_token = mrst.group(1) if mrst else ''
         return article_list, msg_token
 
-    def get_news_list(self, biz, uin, key, pass_ticket, frommsgid=''):
+    def get_news_list(self, biz, uin, key, pass_ticket='', frommsgid=''):
         # 获取公众号文章列表
         msgsend_url = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=%s&scene=124&" \
                       "devicetype=android-22&version=26050732&lang=zh_CN&nettype=" \
@@ -85,4 +85,7 @@ class CrawlerWeixin(object):
 if __name__ == "__main__":
     if len(sys.argv) == 2 and sys.argv[1] == 'test_list':
         inst = CrawlerWeixin('')
-        print inst.crawl_news_list('MzA3NDMzNTgzMQ==', key_idx=0)
+        biz = ''
+        uin = ''
+        key = ''
+        print inst.get_news_list(biz, uin, key)
