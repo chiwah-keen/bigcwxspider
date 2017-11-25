@@ -1,0 +1,26 @@
+#! /usr/bin/env python
+# coding:utf-8
+# author:jzh
+# 时间：2015-10-14 10:17
+
+
+MYSQL_HOST = '127.0.0.1'
+MYSQL_USER = 'duser'
+MYSQL_PASSWD = 'duser123'
+MYSQL_DB = 'bigc_wxcj'
+
+
+PUBNUM_ADD_WEB_PORT = 8080
+
+
+PUSH_QUEUE_SUCCESS_TIMESCALE = 10 * 60
+PUSH_QUEUE_FAILED_TIMESCALE = 10 * 60
+
+POP_QUEUE_FAILED_TIMESCALE = 1 * 60
+
+WECHAT_KEY_TTL = 5 * 60
+
+GET_NO_WECHAT_KEY_TIMESCALE = 1 * 60
+
+
+GET_KEY_API = 'http://123.57.142.161:86/Home/key/get_key?auth=8418b08d66c12c6c50d92c44d0e47f7b&num=5'
