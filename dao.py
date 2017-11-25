@@ -62,15 +62,15 @@ def get_wechat_article_by_url_md5(db, url_md5):
 
 def update_pubnum_article_time(db, pubnum_id, article_time):
     return db.update("update wechat_pubnum set last_article_time=%(art_time)s where pubnum_id=%(pubnum_id)s",
-                     pubnum_id=pubnum_id, article_time=article_time)
+                     pubnum_id=pubnum_id, art_time=article_time)
 
 def save_article(db, pubnum_id, art):
     try:
         return db.insert("insert into wechat_article(pubnum_id, url_md5, content_url, title, "
                          "author, cover_url, publish_time, create_time) values (%(pubnum_id)s, %(url_md5)s, "
-                         "%(content_url)s, %(title)s, %(author)s, %(publish_time)s, %(create_time)s)",
+                         "%(content_url)s, %(title)s, %(author)s, %(cover_url)s, %(publish_time)s, %(create_time)s)",
                          pubnum_id=pubnum_id, url_md5=art['url_md5'], content_url=art['content_url'],
-                         title=art['title'], author=art['author'], conver_url=art['conver_url'],
+                         title=art['title'], author=art['author'], cover_url=art['cover_url'],
                          publish_time=art['publish_time'], create_time=utils.get_curr_time())
     except Exception as e:
         print traceback.format_exc()

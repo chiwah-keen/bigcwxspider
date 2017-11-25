@@ -9,6 +9,9 @@ import requests, re, urllib
 import HTMLParser
 import logging
 
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 RE_ERRMSG = re.compile(r'class="weui_msg_desc">(.*)</p>')
 RE_MSGLIST = re.compile(r'\s*msgList =\s*(.*);')
 RE_APPMSGTOKEN = re.compile(r".*appmsg_token\s*=\s*\"(.*)\";")
@@ -48,7 +51,7 @@ class CrawlerWeixin(object):
             # print cookies
             self.headers['X-WECHAT-KEY'] = key
             self.headers['X-WECHAT-UIN'] = urllib.quote(uin)
-            content =requests.get(msgsend_url, cookies=self.cookies, headers=self.headers, timeout=15, verify=False)
+            content = utils.get_content(msgsend_url, cookies=self.cookies, headers=self.headers, verify=False)
             #  set cookies.
             if not content:
                 self.log.warn('get new list failed, biz=%s, errmsg=response error %s ' % (biz, uin))
@@ -72,7 +75,7 @@ class CrawlerWeixin(object):
             if not news_json:
                 self.log.warn('failed to loads json, biz=%s, uin=%s' % (biz, uin))
                 return []
-            self.log.info("crawl news list success len:%s", len(news_json.get('list', [])))
+            self.log.info("crawl news list success len:%s" % len(news_json.get('list', [])))
             return news_json.get('list', [])
         except Exception as e:
             self.log.error('get news list Exception:%s, biz:%s, uin:%s' % (traceback.format_exc(), biz, uin))

@@ -13,7 +13,7 @@ from logging.handlers import RotatingFileHandler
 class Log(object):
     LOG_LEVELS = {"debug": logging.DEBUG, "info": logging.INFO, "warning": logging.WARNING, "error": logging.ERROR}
 
-    def __init__(self,  path, name="", loglevel="", maxsize=5 * 1024 * 1024, fmt=None, backupcount=5, dividelevel=0):
+    def __init__(self,  path, name="", loglevel="", maxsize=50 * 1024 * 1024, fmt=None, backupcount=5, dividelevel=0):
         self.log_prefix = name or "dg"
         self.log_path = path or "/tmp/tnlog/"
         self.log_maxsize = maxsize

@@ -24,6 +24,15 @@ def get_curr_time(fmt='%Y-%m-%d %H:%M:%S'):
     return time.strftime(fmt)
 
 
+def get_format_time(t=time.time(), fmt="%Y-%m-%d %H:%M:%S"):
+    if isinstance(t, (int, float)) or str(t).replace('.', '', 1).isdigit():
+        return time.strftime(fmt, time.localtime(float(t)))
+    if isinstance(t, basestring) and not t.isdigit():
+        return time.strftime(fmt, time.strptime(t, "%Y-%m-%d %H:%M:%S"))
+    if isinstance(t, time.struct_time):
+        return time.strftime(fmt, t)
+
+
 def get_timestamp(t=time.time(), fmt="%Y-%m-%d %H:%M:%S", getint=True):
     if isinstance(t, (int, float)) or str(t).replace('.', '', 1).isdigit():
         return int(t) if getint else t
@@ -43,11 +52,11 @@ def json_loads(json_str):
         return None
 
 
-def get_content(url, max_try=10, verify=True, headers={}):
+def get_content(url, max_try=10, verify=True, headers={}, cookies={}):
     while max_try:
         try:
             headers = headers or dheaders
-            r = requests.get(url, headers=headers, timeout=20, verify=verify)
+            r = requests.get(url, headers=headers, cookies=cookies, timeout=20, verify=verify)
             if r.status_code != requests.codes.ok:
                 utilslog.error("requests code error %s, url %s" % (r.status_code, url))
                 max_try -= 1

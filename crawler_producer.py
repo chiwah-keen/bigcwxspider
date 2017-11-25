@@ -12,7 +12,7 @@ class QueueProducer(multiprocessing.Process):
 
     def __init__(self, queue):
         multiprocessing.Process.__init__(self)
-        self.log = Log("../logs", name="push-queue.log", dividelevel=0, loglevel="info")
+        self.log = Log("./logs", name="producer-queue.log", dividelevel=0, loglevel="info")
         self.queue = queue
         self.mydqldb = db.Connection(host=conf.MYSQL_HOST, user=conf.MYSQL_USER,
                                      password=conf.MYSQL_PASSWD, database=conf.MYSQL_DB,
@@ -29,8 +29,8 @@ class QueueProducer(multiprocessing.Process):
                 for pubnum in pubnums:
                     self.log.info(' push pubnum to queue, pub info : %s' % pubnum)
                     self.queue.put(pubnum)
-                time.sleep(conf.PUSH_QUEUE_SUCCESS_TIMESCALE)
                 self.log.info('-----  end to push pubnum to queue -----')
+                time.sleep(conf.PUSH_QUEUE_SUCCESS_TIMESCALE)
             except Exception as e:
                 self.log.error(traceback.format_exc())
                 time.sleep(conf.PUSH_QUEUE_FAILED_TIMESCALE)
