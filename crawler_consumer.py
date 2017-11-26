@@ -127,6 +127,7 @@ class QueueConsumer(multiprocessing.Process):
                 self.save_articles(pubnum.pubnum_id, articles)
                 last_update_time = self.get_last_update_time(articles)
                 dao.update_pubnum_article_time(self.mydqldb, pubnum.pubnum_id, last_update_time)
+                dao.set_pubnum_to_crawlered(self.mydqldb, pubnum.pubnum_id)
                 self.pubnum = None  # 设置为成功
                 time.sleep(1)
             except Exception as e:
