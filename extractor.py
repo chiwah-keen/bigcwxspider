@@ -3,7 +3,7 @@
 # author:jzh
 import traceback, re
 from log import Log
-extratorlog = Log("../logs", name="extractor-log", dividelevel=0, loglevel="info")
+extratorlog = Log("./logs", name="extractor-log", dividelevel=0, loglevel="info")
 
 
 RE_MSGLIST = re.compile(r'\s*msgList =\s*(.*);')
