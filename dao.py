@@ -78,6 +78,11 @@ def save_article(db, pubnum_id, art):
         return False
 
 
+def get_pubnum_by_originid(db, originid):
+    return db.get("select * from wechat_pubnum where originid=%(originid)s limit 1",
+                  originid=originid)
+
+
 def save_wecaht_pubnum(db, p):
     try:
         return db.insert('insert into wechat_pubnum(wechat_name, nick_name, pic_url,qr_code, originid, '

@@ -20,8 +20,11 @@ class MainHandler(tornado.web.RequestHandler):
             content = utils.get_content(article_url)
             article = extractor.parse_pubnum_from_article(content)
             weblog.info('extrat article info %s ' % article)
-            if not article or 'biz' not in article:
+            if not article or 'biz' not in article or 'originid' not in article:
                 return self.write({'status': 1, 'message': 'parse pubnum error!'})
+            pubnum = dao.get_pubnum_by_originid(mydqldb, article['originid'])
+            if pubnum:
+                return self.write({'status': 1, 'message': 'pubnum exists!'})
             status = dao.save_wecaht_pubnum(mydqldb, article)
             weblog.info('save wecaht pubnum status: %s' % status)
             if status is False:
