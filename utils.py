@@ -4,7 +4,7 @@
 
 import time, json, traceback, requests, random, urlparse, hashlib
 from log import Log
-utilslog = Log("../logs", name="utils-log", dividelevel=0, loglevel="info")
+utilslog = Log("./logs", name="utils-log", dividelevel=0, loglevel="info")
 
 dheaders = {
     'User-Agent' : 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) '
