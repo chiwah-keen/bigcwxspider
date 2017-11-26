@@ -26,7 +26,7 @@ HEADERS = {'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS 
 class CrawlerWeixin(object):
 
     def __init__(self):
-        self.log = Log("../logs", name="craler-weixin", dividelevel=0, loglevel="info")
+        self.log = Log("./logs", name="craler-weixin", dividelevel=0, loglevel="info")
         self.headers = HEADERS
 
     def parse_article_list(self, content):
