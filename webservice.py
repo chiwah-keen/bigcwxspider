@@ -39,6 +39,7 @@ def make_app():
 
 if __name__ == "__main__":
     app = make_app()
+    weblog.info('start server listen on %s' % conf.PUBNUM_ADD_WEB_PORT)
     app.listen(conf.PUBNUM_ADD_WEB_PORT)
     tornado.ioloop.IOLoop.current().start()
 
