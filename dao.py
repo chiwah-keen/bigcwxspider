@@ -12,9 +12,9 @@ def get_schedule_pubnum_id(db):
                     article_time=utils.get_middle_night())
 
 
-def set_pubnum_status(db, pubnum_id, stauts=0):
+def set_pubnum_status(db, pubnum_id, status=0):
     return db.update("update wechat_pubnum set status=%(status)s where pubnum_id=%(pubnum_id)s",
-                     pubnum_id=pubnum_id, stauts=stauts)
+                     pubnum_id=pubnum_id, status=status)
 
 
 def push_pubnum_to_crawler(db, pubnum_id):
@@ -22,11 +22,11 @@ def push_pubnum_to_crawler(db, pubnum_id):
 
 
 def set_pubnum_to_disable(db, pubnum_id):
-    return set_pubnum_status(db, pubnum_id, stauts=2)
+    return set_pubnum_status(db, pubnum_id, status=2)
 
 
 def set_pubnum_to_crawlered(db, pubnum_id):
-    return set_pubnum_status(db, pubnum_id, stauts=1)
+    return set_pubnum_status(db, pubnum_id, status=1)
 
 
 def get_pubnum_by_status(db, status):
