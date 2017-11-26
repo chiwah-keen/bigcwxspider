@@ -27,6 +27,9 @@ class QueueProducer(multiprocessing.Process):
                 pubnums = self.get_uncrawl_pubnum()
                 self.log.info('----- start to push pubnum to queue len %s-----' % len(pubnums))
                 for pubnum in pubnums:
+                    if not pubnum.biz:
+                        self.log.error('current pubnum has no biz %s ' % pubnum)
+                        continue
                     self.log.info(' push pubnum to queue, pub info : %s' % pubnum)
                     self.queue.put(pubnum)
                 self.log.info('-----  end to push pubnum to queue -----')

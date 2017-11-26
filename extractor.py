@@ -11,7 +11,7 @@ RE_PUBNUM_NICK_NAME = re.compile(r'\s*var nickname = "(.*)";')
 RE_PUBNUM_WCHAT_NAME = re.compile(r'\s*var user_name = "(.*)";')
 RE_PUBNUM_PIC_URL = re.compile(r'\s*var round_head_img = "(.*)";')
 RE_PUBNUM_ORIGINID = re.compile(r'\s*var user_name = "(.*)";')
-RE_PUBNUM_BIZ = re.compile(r'\s*var appuin = "(.*)"\|\|"(.*)";')
+RE_PUBNUM_BIZ = re.compile(r'\s*var\s*appuin\s*=\s*"(.*)"\|\|"(.*)";')
 
 
 def parse_pubnum_from_article(content):
@@ -27,7 +27,7 @@ def parse_pubnum_from_article(content):
         originid = RE_PUBNUM_ORIGINID.search(content)
         originid = originid.group(1) if originid else ''
         biz = RE_PUBNUM_BIZ.search(content)
-        biz = biz.group(1) if biz else ''
+        biz = biz.group(1) if biz and biz.group(1) else (biz.group(2) if biz.group(2) else '')
         article['nick_name'] = nick_name
         article['wchat_name'] = wchat_name
         article['pic_url'] = pic_url
@@ -38,5 +38,9 @@ def parse_pubnum_from_article(content):
         extratorlog.error(traceback.format_exc())
         return None
 
+if __name__ == "__main__":
+    biz = RE_PUBNUM_BIZ.search("""  var appuin = ""||"MzA4MTY2ODUwMA==";  """)
+    biz = biz.group(1) if biz and biz.group(1) else (biz.group(2) if biz.group(2) else '')
+    print biz
 
 
