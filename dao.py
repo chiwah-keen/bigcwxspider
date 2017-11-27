@@ -8,7 +8,7 @@ import utils, traceback
 
 
 def get_schedule_pubnum_id(db):
-    return db.query("select pubnum_id from wechat_pubnum where last_article_time > %(article_time)s",
+    return db.query("select pubnum_id from wechat_pubnum where last_article_time < %(article_time)s",
                     article_time=utils.get_middle_night())
 
 
@@ -18,7 +18,7 @@ def set_pubnum_status(db, pubnum_id, status=0):
 
 
 def push_pubnum_to_crawler(db, pubnum_id):
-    return set_pubnum_status(db, pubnum_id)
+    return set_pubnum_status(db, pubnum_id, status=0)
 
 
 def set_pubnum_to_disable(db, pubnum_id):
@@ -94,11 +94,3 @@ def save_wecaht_pubnum(db, p):
     except Exception as e:
         print traceback.format_exc()
         return False
-
-
-
-
-
-
-
-

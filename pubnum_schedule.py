@@ -16,14 +16,13 @@ class schedulePush(object):
 
     # main func here.
     def start(self):
-        articles = dao.get_schedule_pubnum_id(self.mydqldb)
-        self.log.info('----- start to push pubnum to crawler crawler num: %s-----' % (len(articles)))
-        for art in articles:
-            status = dao.push_pubnum_to_crawler(self.mydqldb)
-            self.log.info('push pubnum to crawler %s %s ' % (str(art), status))
+        pubnums = dao.get_schedule_pubnum_id(self.mydqldb)
+        self.log.info('----- start to push pubnum to crawler crawler num: %s-----' % (len(pubnums)))
+        for pubnum in pubnums:
+            status = dao.push_pubnum_to_crawler(self.mydqldb, pubnum.pubnum_id)
+            self.log.info('push pubnum to crawler %s %s ' % (str(pubnum), 0))
         self.log.info('----- end to push pubnum to crawler -----')
         self.mydqldb.close()
 
 pusher = schedulePush()
 pusher.start()
-

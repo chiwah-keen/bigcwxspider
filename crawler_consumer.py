@@ -65,6 +65,7 @@ class QueueConsumer(multiprocessing.Process):
         return self.wechat_key
 
     def parse_article_common(self, art):
+        if not art: return {}
         wechat_article = dict()
         wechat_article['author'] = art.get('author', '')
         wechat_article['cover_url'] = HTMLParser.HTMLParser().unescape(art.get('cover', '').replace("\\", ''))
@@ -79,10 +80,16 @@ class QueueConsumer(multiprocessing.Process):
             article_timestamp = articles.get('comm_msg_info', {}).get('datetime')
             article_time = utils.get_format_time(article_timestamp)
             wechat_article = self.parse_article_common(articles.get('app_msg_ext_info'))
+            if not wechat_article:
+                self.log.warn('parse article error! %s' % wechat_article)
+                continue
             wechat_article['publish_time'] = article_time
             all_articles.append(wechat_article)
             for art in articles.get('app_msg_ext_info', {}).get('multi_app_msg_item_list', []):
                 wechat_article = self.parse_article_common(art)
+                if not wechat_article:
+                    self.log.warn('parse article error! %s' % wechat_article)
+                    continue
                 wechat_article['publish_time'] = article_time
                 all_articles.append(wechat_article)
         return all_articles
